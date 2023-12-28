@@ -37,7 +37,7 @@ public class SimulationScreen extends Canvas implements KeyListener, MouseListen
 
 		int disp = 1000;
 		if (!Main.toggleButton.isSelected()) {
-			for (Bot botL : Main.geneticAlgorithim.population) {
+			for (Bot botL : Main.geneticAlgorithm.population) {
 				SimulationBot bot = (SimulationBot) botL;
 				disp -= 1;
 				if (disp <= 0)
@@ -48,8 +48,8 @@ public class SimulationScreen extends Canvas implements KeyListener, MouseListen
 			}
 		}
 
-		if (Main.geneticAlgorithim.population.size() > 0)
-			drawBot((SimulationBot) Main.geneticAlgorithim.population.get(0), Color.white, g2d);
+		if (Main.geneticAlgorithm.population.size() > 0)
+			drawBot((SimulationBot) Main.geneticAlgorithm.population.get(0), Color.white, g2d);
 
 		g.drawImage(bi, 0, 0, null);
 
@@ -70,8 +70,9 @@ public class SimulationScreen extends Canvas implements KeyListener, MouseListen
 						.mult(disp_scale),
 				Vector2.add(bot.getPosition(), (new Vector2(bot.getAngle())).getNormalized().mult(RAD))
 						.mult(disp_scale));
+		double angle = Vector2.getAngle(bot.getDir(), new Vector2(0,1));
 		for (Thruster t : bot.getAllTrusters()) {
-			Vector2 pos = t.getAbsolutePos();
+			Vector2 pos = t.getAbsolutePos2Fast4U(bot.getPosition(),angle);
 			// Vector2 ruler = Vector2.turnDeg(new Vector2(0, SQR), Vector2.getAngle(new
 			// Vector2(0, 1),t.getDirection()));
 			Vector2 ruler = t.getAbsoluteDirection().getNormalized().mult(SQR);
