@@ -28,13 +28,13 @@ public class SandboxSettings {
 	 * while exponentially weigthed keeps an exponentially weighted average over all past scores
 	 * This helps with moving targets
 	*/
-	public static final ScoreSetting scoreSetting = ScoreSetting.EXPONENTIALY_WEIGHTED_SCORE;
+	public static final ScoreSetting scoreSetting = ScoreSetting.BASIC_SCORE;
 
 	/* Amount of steps before a simulation ends */
 	public static int simulationSteps = 500;
 
 	/* A factor that increases the simulationSteps value over the generation count*/
-	public static float additionalSimulationStepsPerGeneration = 0.02F;
+	public static float additionalSimulationStepsPerGeneration = 0.0F;
 
 	/* The scale of the hidden layer of the neural network */
 	public static int hiddenLayerSize = 2;
@@ -51,10 +51,12 @@ public class SandboxSettings {
 		
 		bot.setCapsuleWeight(5);
 
-		bot.addThruster(new Thruster(new Vector2(60, 0), new Vector2(0, -1), 150, 1));
+		// One thruster drone
+		//bot.addThruster(new Thruster(new Vector2(60, 0), new Vector2(0, -1), 150, 1));
+
 		// Basic drone with two thrusters
-		//bot.addThruster(new Thruster(new Vector2(60, 0), new Vector2(0, -1), 150, 5));
-		//bot.addThruster(new Thruster(new Vector2(-60, 0), new Vector2(0, -1), 150, 5));
+		bot.addThruster(new Thruster(new Vector2(60, 0), new Vector2(0, -1), 150, 5));
+		bot.addThruster(new Thruster(new Vector2(-60, 0), new Vector2(0, -1), 150, 5));
 		
 		
 		

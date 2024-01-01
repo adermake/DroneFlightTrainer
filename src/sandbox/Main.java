@@ -98,9 +98,9 @@ public class Main {
 
 				int fast = shiftSlider.getValue();
 
-				if (fast < 50) {
+				if (fast < 20) {
 					try {
-						Thread.sleep((50 - fast) * 1);
+						Thread.sleep((20 - fast) * 1);
 					} catch (InterruptedException e) {
 
 						e.printStackTrace();
@@ -113,7 +113,7 @@ public class Main {
 							.filter(SimulationBot.class::isInstance).map(SimulationBot.class::cast)
 							.forEach(bot -> simulateFrame(bot));
 
-					moveTargetDuringSimulation(targetVel, currentTick);
+					targetVel = moveTargetDuringSimulation(targetVel, currentTick);
 
 					if (currentTick > SandboxSettings.simulationSteps
 							+ gen * SandboxSettings.additionalSimulationStepsPerGeneration) {
@@ -136,8 +136,7 @@ public class Main {
 							SandboxSettings.botGoalPosition = Vector2.turnDeg(SandboxSettings.botGoalPosition,
 									Math.random() * 360F);
 
-						if (SandboxSettings.targetSetting == TargetSetting.CHANGE_TARGET_EACH_RUN
-								|| SandboxSettings.targetSetting == TargetSetting.CANT_CATCH_ME) {
+						if (SandboxSettings.targetSetting == TargetSetting.CHANGE_TARGET_EACH_RUN) {
 							SandboxSettings.botGoalPosition = new Vector2((random.nextDouble() * 2 - 1) * 500,
 									(random.nextDouble() * 2 - 1) * 500);
 						}
@@ -189,7 +188,7 @@ public class Main {
 
 	}
 
-	public static void moveTargetDuringSimulation(Vector2 targetVel, int currentTick) {
+	public static Vector2 moveTargetDuringSimulation(Vector2 targetVel, int currentTick) {
 
 		if (simulationScreen.holdingMouse) {
 
@@ -203,7 +202,7 @@ public class Main {
 					/ simulationScreen.disp_scale);
 			SandboxSettings.botGoalPosition.setX(mouseX);
 			SandboxSettings.botGoalPosition.setY(mouseY);
-			return;
+			return targetVel;
 		}
 		if (SandboxSettings.targetSetting == TargetSetting.CHANGE_TARGET_DURING_RUN) {
 			if (currentTick % 300 == 0) {
@@ -225,6 +224,8 @@ public class Main {
 		if (SandboxSettings.targetSetting == TargetSetting.MOVE_CIRCULAR) {
 			SandboxSettings.botGoalPosition = Vector2.turnDeg(SandboxSettings.botGoalPosition, 0.5F);
 		}
+
+		return targetVel;
 	}
 
 	public static void sortPopulation() {
@@ -309,16 +310,7 @@ public class Main {
 		button.addActionListener(e -> generatePlot());
 
 		  toggleButton = new JToggleButton("Best only");
-        toggleButton.addActionListener(e -> {
-            // Add your toggle button action here
-            if (toggleButton.isSelected()) {
-                // Toggle button is selected
-                textLabel.setText("Toggle button is selected");
-            } else {
-                // Toggle button is not selected
-                textLabel.setText("Toggle button is not selected");
-            }
-        });
+      
 
 		// Use FlowLayout for the panel containing the button
 		JPanel buttonPanel = new JPanel();
