@@ -287,7 +287,7 @@ public class Main {
 
 		JPanel panel = new JPanel(new BorderLayout());
 
-		shiftSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 1);
+		shiftSlider = new JSlider(JSlider.HORIZONTAL, 1, 100, 50);
 		shiftSlider.setMajorTickSpacing(0);
 		shiftSlider.setMinorTickSpacing(0);
 		shiftSlider.setPaintTicks(true);
