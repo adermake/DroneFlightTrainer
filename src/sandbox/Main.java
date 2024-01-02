@@ -30,7 +30,7 @@ import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
 
 import utils.Vector2;
-import workshop.GeneticAlgorithim;
+import workshop.GeneticAlgorithm;
 import workshop.SandboxSettings;
 import utils.RunnerTask;
 
@@ -38,7 +38,7 @@ public class Main {
 
 	public static SimulationScreen screen;
 
-	public static GeneticAlgorithim geneticAlgorithim = new GeneticAlgorithim();
+	public static GeneticAlgorithm geneticAlgorithim = new GeneticAlgorithm();
 	static int gen = 0;
 	public static ArrayList<Double> plotScores = new ArrayList<Double>();
 	public static ArrayList<Color> plotColors = new ArrayList<Color>();
